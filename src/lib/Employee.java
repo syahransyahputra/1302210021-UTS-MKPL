@@ -8,10 +8,7 @@ import lib.EmployeeFamily;
 
 
 public class Employee {
-	public enum Genders{
-		Pria,
-		Wanita
-	}
+
 	
 	private static final int GRADE_1_SALARY = 3000000;
 	private static final int GRADE_2_SALARY = 5000000;
@@ -30,6 +27,11 @@ public class Employee {
 	private int monthWorkingInYear;
 	
 	private boolean isForeigner;
+
+	public enum Genders{
+		Pria,
+		Wanita
+	}
 	private Genders gender; //true = Laki-laki, false = Perempuan
 	
 	private int monthlySalary;
@@ -39,7 +41,18 @@ public class Employee {
     private EmployeeFamily spouse;
     private List<EmployeeFamily> children;
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Genders gender) {
+	public Employee(
+			String employeeId, 
+			String firstName, 
+			String lastName, 
+			String idNumber, 
+			String address, 
+			int yearJoined, 
+			int monthJoined, 
+			int dayJoined, 
+			boolean isForeigner, 
+			Genders gender
+		) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
