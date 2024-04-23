@@ -1,29 +1,32 @@
 package lib;
 
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
+
 public class EmployeeFamily {
 
     private String name;
     private String idNumber;
 
-    public EmployeeFamily(String name, String idNumber) {
-        this.name = name;
-        this.idNumber = idNumber;
-    }
+    private List<String> childNames;
+    private List<String> childIdNumbers;
 
-    public String getName() {
+
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIdNumber() {
+    public String getIdNumber(){
         return idNumber;
     }
 
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+    public List<String> getChildNames(){
+        return childNames;
+    }
+
+    public List<String> getChildIdNumbers(){
+        return childIdNumbers;
     }
 }
 
