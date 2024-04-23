@@ -8,7 +8,11 @@ import lib.EmployeeFamily;
 
 
 public class Employee {
-
+	public enum Genders{
+		Pria,
+		Wanita
+	}
+	
 	private static final int GRADE_1_SALARY = 3000000;
 	private static final int GRADE_2_SALARY = 5000000;
 	private static final int GRADE_3_SALARY = 7000000;
@@ -26,7 +30,7 @@ public class Employee {
 	private int monthWorkingInYear;
 	
 	private boolean isForeigner;
-	private boolean gender; //true = Laki-laki, false = Perempuan
+	private Genders gender; //true = Laki-laki, false = Perempuan
 	
 	private int monthlySalary;
 	private int otherMonthlyIncome;
@@ -35,7 +39,7 @@ public class Employee {
     private EmployeeFamily spouse;
     private List<EmployeeFamily> children;
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
+	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Genders gender) {
 		this.employeeId = employeeId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -105,30 +109,4 @@ public class Employee {
 		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible,
                 (spouse != null) && spouse.getIdNumber().isEmpty(), children.size());
 	}
-}
-
-class EmployeeFamily {
-    private String name;
-    private String idNumber;
-
-    public EmployeeFamily(String name, String idNumber) {
-        this.name = name;
-        this.idNumber = idNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
-    }
 }
