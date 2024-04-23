@@ -17,18 +17,15 @@ public class Employee {
 
 	private String employeeId;
 	private String firstName;
-	private String lastName;
+	private String lastName; 
 	private String idNumber;
 	private String address;
 	
-	private int yearJoined;
-	private int monthJoined;
-	private int dayJoined;
-	private int monthWorkingInYear;
+	private LocalDate dateJoined; 
 	
-	private boolean isForeigner;
+	private boolean isForeigner; 
 
-	public enum Genders{
+	public enum Genders{ 
 		Pria,
 		Wanita
 	}
@@ -47,9 +44,7 @@ public class Employee {
 			String lastName, 
 			String idNumber, 
 			String address, 
-			int yearJoined, 
-			int monthJoined, 
-			int dayJoined, 
+			LocalDate dateJoined,
 			boolean isForeigner, 
 			Genders gender
 		) {
@@ -58,9 +53,7 @@ public class Employee {
 		this.lastName = lastName;
 		this.idNumber = idNumber;
 		this.address = address;
-		this.yearJoined = yearJoined;
-		this.monthJoined = monthJoined;
-		this.dayJoined = dayJoined;
+		this.dateJoined = dateJoined;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 	}
@@ -111,15 +104,18 @@ public class Employee {
 	public int getAnnualIncomeTax() {
 		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
-		LocalDate date = LocalDate.now();
+		LocalDate curentDate = LocalDate.now();
+		int monthsWorked = 12;
 		
-		if (date.getYear() == yearJoined) {
-			monthWorkingInYear = date.getMonthValue() - monthJoined;
-		}else {
-			monthWorkingInYear = 12;
+		if (curentDate.getYear() == dateJoined.getYear()) {
+			monthsWorked = curentDate.getMonthValue() - dateJoined.getMonthValue();
 		}
+
+		int numChildren = children.size();
+		boolean isMarried = spouse != null && !idNumber.isEmpty();
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible,
-                (spouse != null) && spouse.getIdNumber().isEmpty(), children.size());
+		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthsWorked, 
+			annualDeductible, isMarried, numChildren);
+                
 	}
 }
