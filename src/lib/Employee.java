@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
+import lib.EmployeeFamily;
+
 
 public class Employee {
 
@@ -11,6 +13,7 @@ public class Employee {
 	private static final int GRADE_2_SALARY = 5000000;
 	private static final int GRADE_3_SALARY = 7000000;
     private static final double FOREIGNER_SALARY_INCREASE = 1.5;
+
 	private String employeeId;
 	private String firstName;
 	private String lastName;
@@ -29,11 +32,8 @@ public class Employee {
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+    private EmployeeFamily spouse;
+    private List<EmployeeFamily> children;
 	
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
 		this.employeeId = employeeId;
@@ -46,9 +46,6 @@ public class Employee {
 		this.dayJoined = dayJoined;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
-		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
 	}
 	
 	/**
@@ -86,15 +83,13 @@ public class Employee {
 		this.otherMonthlyIncome = income;
 	}
 	
-	public void setSpouse(String spouseName, String spouseIdNumber) {
-		this.spouseName = spouseName;
-		this.spouseIdNumber = idNumber;
-	}
+	public void setSpouse(EmployeeFamily spouse) {
+        this.spouse = spouse; // data clumps
+    }
 	
-	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
-	}
+	public void addChild(EmployeeFamily child) {
+        children.add(child); // data clumps
+    }
 	
 	public int getAnnualIncomeTax() {
 		
@@ -107,6 +102,33 @@ public class Employee {
 			monthWorkingInYear = 12;
 		}
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
+		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible,
+                (spouse != null) && spouse.getIdNumber().isEmpty(), children.size());
 	}
+}
+
+class EmployeeFamily {
+    private String name;
+    private String idNumber;
+
+    public EmployeeFamily(String name, String idNumber) {
+        this.name = name;
+        this.idNumber = idNumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
 }
